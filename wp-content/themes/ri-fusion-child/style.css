@@ -47,7 +47,12 @@ Use it to make something cool, have fun, and share what you've learned with othe
   padding: 10px;
   text-align: center;
   background: #696969;
-  /*overflow: hidden;*/
+  will-change: padding;
+  transition: padding .2s linear;
+}
+.photo-index .photo-cats article.cat:hover,
+.photo-index .photo-cats article.cat:focus {
+  padding: 15px;
 }
 .photo-index .photo-cats article.cat::after {
   content: '';
@@ -57,7 +62,12 @@ Use it to make something cool, have fun, and share what you've learned with othe
   top: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
+  transition: background .2s linear;
   z-index: 0;
+}
+.photo-index .photo-cats article.cat:hover::after,
+.photo-index .photo-cats article.cat:focus::after {
+  background: rgba(0, 0, 0, 0.4);
 }
 .photo-index .photo-cats article.cat:hover .cat-bg,
 .photo-index .photo-cats article.cat:focus .cat-bg {
@@ -111,6 +121,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
   justify-content: center;
   padding: 16px;
 }
+
 @media screen and (min-width: 768px) {
   .photo-index .photo-cats article.cat {
     min-height: 300px;
@@ -119,6 +130,10 @@ Use it to make something cool, have fun, and share what you've learned with othe
   .photo-index .photo-cats article.cat h4 {
     font-size: 48px;
   }
+  .photo-index .photo-cats article.cat:hover,
+  .photo-index .photo-cats article.cat:focus {
+    padding: 20px;
+  }
 }
 @media screen and (min-width: 1024px) {
   .photo-index .photo-cats article.cat {
@@ -126,5 +141,9 @@ Use it to make something cool, have fun, and share what you've learned with othe
   }
   .photo-index .photo-cats article.cat {
     min-height: 400px;
+  }
+  .photo-index .photo-cats article.cat:hover,
+  .photo-index .photo-cats article.cat:focus {
+    padding: 30px;
   }
 }
