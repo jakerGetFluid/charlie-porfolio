@@ -28,7 +28,7 @@ $regex_is_user_agent_vaultpress = 'vaultpress';
 $regex_is_user_agent_403 = "^Mozilla(?: |/2|/4\.0\+?\\()|^(?:LWP|MSIE|Nut|Omniexpl|Opera/9\.64|pussycat|python|super happy|trackback/|user|website-|winnie)|[\\r\\n]|psyche|\bemail|autoemailspider|core-project|diamond|digger|ecollector|forum|^java[/ ]\\d\\.|Microsoft URL|Missigua|Movable Type|grub|httpproxy|Internet Explorer|isc systems|blogsearch|cherrypicker|maxpoint|casper|boston|feedfinder|cmsworldmap|diavol|dotbot|flicky|ia_archiver|kmccrew|libwww|planetwork|pycurl|skygrid|; Widows|a href|DTS agent|user-agent:|hanzoweb|indy lib|murzillo|\.NET CLR 1\)|POE-Component-Client|turing mach|Ubuntu/9\.25|unspecified\\.mail|webaltbot|wise(?:nut)?bot|Windows NT [45]\.[01];\)|Windows XP 5|WordPress/4\.01|discobot|xedant|typhoeus|Morfeus|PMAFind|revolt|sqlmap|w3af|Nikto|ZmEu|\\\\\\\\";
 
 // Case-insensitive regex for paths which we should automatically 403 on
-$regex_is_path_403 = "/\.(?:htaccess|svn|cvs|git|smushit-status|largefs)|\\.(?:as.x)\$|r\\d+shell|/.*\\.sql(\\.gz)?$|/uploads/(?:temp|backupbuddy)_|/wp-content/plugins/tweet-blender/|^/sd_nginx_status|^/_wpeprivate|/php-?(?:my)?-?admin|/pma/?$|^/readme.htm|\\bgoogle\\.com/humans\\.txt|mysql-parallel-dump.*|.*?/__wpe_admin_ajax\\.log\$";
+$regex_is_path_403 = "/\.(?:htaccess|user\\.ini|svn|cvs|git|smushit-status|largefs)|wp-config\\.php|debug\\.log|\\.(?:as.x)\$|r\\d+shell|/.*\\.sql(\\.gz)?$|/uploads/(?:temp|backupbuddy)_|/wp-content/plugins/tweet-blender/|^/sd_nginx_status|^/_wpeprivate|/php-?(?:my)?-?admin|/pma/?$|^/readme.htm|\\bgoogle\\.com/humans\\.txt|mysql-parallel-dump.*|.*?/__wpe_admin_ajax\\.log\$";
 
 // Case-insensitive regex for query-strings which we should automatically 403 on
 $regex_is_qstr_403 = "(?:\\<|%3c).*script.*(?:\\>|%3e)|\\b(?:GLOBALS|_REQUEST|_GET|_POST|_COOKIE)(?:=|\[|\%[0-9A-Z]{0,2})|\\bgoogle\\.com/humans\\.txt";
@@ -43,10 +43,10 @@ $regex_is_path_feed = "/(?:atom(?:/|\\.xml)?(?:/index.php)?|feed(?:/|\\.xml|/rss
 $regex_is_path_wp_admin = "/wp-(?:admin|[^/]+\\.php\$)";
 
 // Regex for whether these args *should* be served to bots, otherwise we will 301 the bot to the path with args stripped away.
-$regex_is_qargs_allowed_for_bot = "(?:p=\d+|feed=)";
+$regex_is_qargs_allowed_for_bot = "(?:p=\d+|feed=|amp([=&]|$))";
 
 // Regex for whether a path should *not* be served to bots, in which case it 301s the bot to the home page
-$regex_is_path_disallowed_for_bot = ".*?(?:/page/\d\d+|/attachment/|/search/|/members/[^/]+/activity|/activity/p/)";
+$regex_is_path_disallowed_for_bot = "(?!.*?/amp).*?(?:/page/\d\d+|/attachment/|/search/|/members/[^/]+/activity|/activity/p/)";
 
 // Regex for whether a path should *not* be served to bots, in which case it 301s the bot to the home page
 $regex_is_last_path_component_disallowed_for_bot = ".*?(?:[a-zA-Z](?<!/page)/\d+)/?\$";

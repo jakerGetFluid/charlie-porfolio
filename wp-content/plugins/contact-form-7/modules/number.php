@@ -7,7 +7,7 @@
 
 /* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_number', 10, 0 );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_number' );
 
 function wpcf7_add_form_tag_number() {
 	wpcf7_add_form_tag( array( 'number', 'number*', 'range', 'range*' ),
@@ -50,8 +50,7 @@ function wpcf7_number_form_tag_handler( $tag ) {
 
 	$value = (string) reset( $tag->values );
 
-	if ( $tag->has_option( 'placeholder' )
-	or $tag->has_option( 'watermark' ) ) {
+	if ( $tag->has_option( 'placeholder' ) || $tag->has_option( 'watermark' ) ) {
 		$atts['placeholder'] = $value;
 		$value = '';
 	}
@@ -97,13 +96,13 @@ function wpcf7_number_validation_filter( $result, $tag ) {
 	$min = $tag->get_option( 'min', 'signed_int', true );
 	$max = $tag->get_option( 'max', 'signed_int', true );
 
-	if ( $tag->is_required() and '' == $value ) {
+	if ( $tag->is_required() && '' == $value ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
-	} elseif ( '' != $value and ! wpcf7_is_number( $value ) ) {
+	} elseif ( '' != $value && ! wpcf7_is_number( $value ) ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_number' ) );
-	} elseif ( '' != $value and '' != $min and (float) $value < (float) $min ) {
+	} elseif ( '' != $value && '' != $min && (float) $value < (float) $min ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'number_too_small' ) );
-	} elseif ( '' != $value and '' != $max and (float) $max < (float) $value ) {
+	} elseif ( '' != $value && '' != $max && (float) $max < (float) $value ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'number_too_large' ) );
 	}
 
@@ -113,7 +112,7 @@ function wpcf7_number_validation_filter( $result, $tag ) {
 
 /* Messages */
 
-add_filter( 'wpcf7_messages', 'wpcf7_number_messages', 10, 1 );
+add_filter( 'wpcf7_messages', 'wpcf7_number_messages' );
 
 function wpcf7_number_messages( $messages ) {
 	return array_merge( $messages, array(
@@ -137,7 +136,7 @@ function wpcf7_number_messages( $messages ) {
 
 /* Tag generator */
 
-add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_number', 18, 0 );
+add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_number', 18 );
 
 function wpcf7_add_tag_generator_number() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();

@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_hidden', 10, 0 );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_hidden' );
 
 function wpcf7_add_form_tag_hidden() {
 	wpcf7_add_form_tag( 'hidden',

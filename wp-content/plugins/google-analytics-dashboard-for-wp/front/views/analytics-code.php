@@ -1,15 +1,15 @@
 <?php
 /**
- * Author: ExactMetrics team
- * Copyright 2018 ExactMetrics team
- * Author URI: https://exactmetrics.com
+ * Author: Alin Marcu
+ * Copyright 2017 Alin Marcu
+ * Author URI: https://deconf.com
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 ?>
 
 <?php if ( 0 == $data['ga_with_gtag'] ):?>
-<!-- BEGIN ExactMetrics v<?php echo GADWP_CURRENT_VERSION; ?> Universal Analytics - https://exactmetrics.com/ -->
+<!-- BEGIN GADWP v<?php echo GADWP_CURRENT_VERSION; ?> Universal Analytics - https://deconf.com/google-analytics-dashboard-wordpress/ -->
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -17,9 +17,9 @@
 })(window,document,'script','<?php echo $data['tracking_script_path']?>','ga');
 <?php echo $data['trackingcode']?>
 </script>
-<!-- END ExactMetrics Universal Analytics -->
+<!-- END GADWP Universal Analytics -->
 <?php else:?>
-<!-- BEGIN ExactMetrics v<?php echo GADWP_CURRENT_VERSION; ?> Global Site Tag - https://exactmetrics.com/ -->
+<!-- BEGIN GADWP v<?php echo GADWP_CURRENT_VERSION; ?> Global Site Tag - https://deconf.com/google-analytics-dashboard-wordpress/ -->
 <script async src="<?php echo $data['tracking_script_path']?>?id=<?php echo $data['uaid']?>"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -36,5 +36,5 @@
     });
   }
 </script>
-<!-- END ExactMetrics Global Site Tag -->
+<!-- END GADWP Global Site Tag -->
 <?php endif;?>

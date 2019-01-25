@@ -33,17 +33,6 @@ class WPCF7_ContactForm {
 			),
 			'rewrite' => false,
 			'query_var' => false,
-			'public' => false,
-			'capability_type' => 'page',
-			'capabilities' => array(
-				'edit_post' => 'wpcf7_edit_contact_form',
-				'read_post' => 'wpcf7_read_contact_form',
-				'delete_post' => 'wpcf7_delete_contact_form',
-				'edit_posts' => 'wpcf7_edit_contact_forms',
-				'edit_others_posts' => 'wpcf7_edit_contact_forms',
-				'publish_posts' => 'wpcf7_edit_contact_forms',
-				'read_private_posts' => 'wpcf7_edit_contact_forms',
-			),
 		) );
 	}
 
@@ -91,7 +80,7 @@ class WPCF7_ContactForm {
 		self::$current = $contact_form = new self;
 		$contact_form->title =
 			( $title ? $title : __( 'Untitled', 'contact-form-7' ) );
-		$contact_form->locale = ( $locale ? $locale : get_user_locale() );
+		$contact_form->locale = ( $locale ? $locale : get_locale() );
 
 		$properties = $contact_form->get_properties();
 
@@ -114,8 +103,7 @@ class WPCF7_ContactForm {
 	public static function get_instance( $post ) {
 		$post = get_post( $post );
 
-		if ( ! $post
-		or self::post_type != get_post_type( $post ) ) {
+		if ( ! $post || self::post_type != get_post_type( $post ) ) {
 			return false;
 		}
 
@@ -141,8 +129,7 @@ class WPCF7_ContactForm {
 	private function __construct( $post = null ) {
 		$post = get_post( $post );
 
-		if ( $post
-		and self::post_type == get_post_type( $post ) ) {
+		if ( $post && self::post_type == get_post_type( $post ) ) {
 			$this->id = $post->ID;
 			$this->name = $post->post_name;
 			$this->title = $post->post_title;
@@ -303,7 +290,7 @@ class WPCF7_ContactForm {
 		}
 
 		if ( $this->is_true( 'subscribers_only' )
-		and ! current_user_can( 'wpcf7_submit', $this->id() ) ) {
+		&& ! current_user_can( 'wpcf7_submit', $this->id() ) ) {
 			$notice = __(
 				"This contact form is available only for logged in users.",
 				'contact-form-7' );
@@ -713,7 +700,7 @@ class WPCF7_ContactForm {
 		) );
 
 		if ( $this->is_true( 'subscribers_only' )
-		and ! current_user_can( 'wpcf7_submit', $this->id() ) ) {
+		&& ! current_user_can( 'wpcf7_submit', $this->id() ) ) {
 			$result = array(
 				'contact_form_id' => $this->id(),
 				'status' => 'error',
@@ -781,7 +768,7 @@ class WPCF7_ContactForm {
 					continue;
 				}
 
-				if ( ! $max or $count < (int) $max ) {
+				if ( ! $max || $count < (int) $max ) {
 					$values[] = trim( $matches[2] );
 					$count += 1;
 				}
@@ -822,8 +809,7 @@ class WPCF7_ContactForm {
 	private function upgrade() {
 		$mail = $this->prop( 'mail' );
 
-		if ( is_array( $mail )
-		and ! isset( $mail['recipient'] ) ) {
+		if ( is_array( $mail ) && ! isset( $mail['recipient'] ) ) {
 			$mail['recipient'] = get_option( 'admin_email' );
 		}
 
@@ -929,7 +915,6 @@ class WPCF7_ContactForm {
 				$this->id, $title );
 		}
 
-		return apply_filters( 'wpcf7_contact_form_shortcode',
-			$shortcode, $args, $this );
+		return apply_filters( 'wpcf7_contact_form_shortcode', $shortcode, $args, $this );
 	}
 }

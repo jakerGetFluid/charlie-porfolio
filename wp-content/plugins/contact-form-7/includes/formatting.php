@@ -164,7 +164,7 @@ function wpcf7_strip_newline( $str ) {
 
 function wpcf7_canonicalize( $text, $strto = 'lower' ) {
 	if ( function_exists( 'mb_convert_kana' )
-	and 'UTF-8' == get_option( 'blog_charset' ) ) {
+	&& 'UTF-8' == get_option( 'blog_charset' ) ) {
 		$text = mb_convert_kana( $text, 'asKV', 'UTF-8' );
 	}
 
@@ -310,8 +310,7 @@ function wpcf7_is_email_in_site_domain( $email ) {
 	$home_url = home_url();
 
 	// for interoperability with WordPress MU Domain Mapping plugin
-	if ( is_multisite()
-	and function_exists( 'domain_mapping_siteurl' ) ) {
+	if ( is_multisite() && function_exists( 'domain_mapping_siteurl' ) ) {
 		$domain_mapping_siteurl = domain_mapping_siteurl( false );
 
 		if ( $domain_mapping_siteurl ) {
@@ -323,7 +322,7 @@ function wpcf7_is_email_in_site_domain( $email ) {
 		$site_domain = strtolower( $matches[1] );
 
 		if ( $site_domain != strtolower( $_SERVER['SERVER_NAME'] )
-		and wpcf7_is_email_in_domain( $email, $site_domain ) ) {
+		&& wpcf7_is_email_in_domain( $email, $site_domain ) ) {
 			return true;
 		}
 	}

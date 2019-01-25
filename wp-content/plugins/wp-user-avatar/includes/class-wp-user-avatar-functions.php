@@ -115,12 +115,7 @@ class WP_User_Avatar_Functions {
       }
       
       //end
-       if ( isset( $_SERVER['HTTPS'] ) && ( 'on' == $_SERVER['HTTPS'] || 1 == $_SERVER['HTTPS'] ) || isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'] ) { 
-        $http='https';
-      }else{
-        $http='http';
-      }
-      $gravatar = $http.'://www.gravatar.com/avatar/'.$hash.'?d=404';
+       $gravatar = 'http://www.gravatar.com/avatar/'.$hash.'?d=404';
       
       $data = wp_cache_get($hash);
 

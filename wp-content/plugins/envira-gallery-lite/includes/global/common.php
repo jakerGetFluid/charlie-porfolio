@@ -586,8 +586,7 @@ class Envira_Gallery_Common {
             // Config Tab
             'columns'             => '0',
             'justified_row_height' => 150, // automatic/justified layout
-			'justified_gallery_theme' => 'normal',
-			'justified_margins'       => 1,
+            'justified_gallery_theme' => 'normal',
             'gallery_theme'       => 'base',
             'display_description' => 0,
             'description'		  => '',

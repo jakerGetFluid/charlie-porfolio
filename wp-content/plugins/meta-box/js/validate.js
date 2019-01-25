@@ -37,14 +37,9 @@ jQuery( function ( $ ) {
 
 		// Required field styling
 		$.each( subRules.rules, function ( k, v ) {
-			if ( ! v['required'] ) {
-				return;
+			if ( v['required'] ) {
+				$( '#' + k ).parent().siblings( '.rwmb-label' ).append( '<span class="rwmb-required">*</span>' );
 			}
-			var $el = $( '[name="' + k + '"]' );
-			if ( ! $el.length ) {
-				return;
-			}
-			$el.closest( '.rwmb-input' ).siblings( '.rwmb-label' ).append( '<span class="rwmb-required">*</span>' );
 		} );
 	} );
 

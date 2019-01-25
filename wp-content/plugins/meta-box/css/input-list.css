@@ -9,12 +9,12 @@
 	list-style: none;
 	margin-bottom: 0;
 }
-.rwmb-input-list.rwmb-inline {
+.rwmb-input-list.inline {
 	line-height: inherit;
 }
-.rwmb-input-list.rwmb-inline li {
+.rwmb-input-list.inline li {
 	display: inline-block;
 }
-.rwmb-input-list.rwmb-inline li:not(:last-child) {
+.rwmb-input-list.inline li:not(:last-child) {
 	margin-right: 20px;
 }

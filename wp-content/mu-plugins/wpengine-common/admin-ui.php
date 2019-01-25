@@ -183,7 +183,7 @@ if ( is_wpe_snapshot() ) {
 	<?php if ( ! is_wpe_snapshot() ) { ?>
 	<h2 class="nav-tab-wrapper">
 		<a class="nav-tab <?php if($active_tab=='general') { echo 'nav-tab-active'; } ?>" href="<?php echo esc_url(add_query_arg(array('page'=>'wpengine-common'))); ?>">General Settings</a>
-		<a class="nav-tab <?php if($active_tab=='staging') { echo 'nav-tab-active'; } ?>" href="<?php echo esc_url(add_query_arg(array('page'=>'wpengine-staging'))); ?>">Staging</a>
+		<a class="nav-tab <?php if($active_tab=='staging') { echo 'nav-tab-active'; } ?>" href="<?php echo esc_url(add_query_arg(array('page'=>'wpengine-staging'))); ?>">Legacy Staging</a>
 	</h2>
 
 <?php
@@ -547,9 +547,7 @@ if ( is_wpe_snapshot() ) {
 $staging_status = $plugin->get_staging_status();
 $production_version = get_bloginfo('version');
 $staging_version = $staging_status['version'];
-// Gophpr: staging version is not populated in gophpr due to staging directory not mounted while in live site
-// No warning is displayed when the site is running in gophpr
-$can_push_staging = $staging_version === "" || is_staging_gte($production_version, $staging_status['version']);
+$can_push_staging = is_staging_gte($production_version, $staging_status['version']);
 ?>
 
 		<?php if($can_push_staging): ?>

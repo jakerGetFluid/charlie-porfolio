@@ -18,14 +18,11 @@ class RWMB_Text_Field extends RWMB_Input_Field {
 	public static function normalize( $field ) {
 		$field = parent::normalize( $field );
 
-		$field = wp_parse_args(
-			$field,
-			array(
-				'size'      => 30,
-				'maxlength' => false,
-				'pattern'   => false,
-			)
-		);
+		$field = wp_parse_args( $field, array(
+			'size'        => 30,
+			'maxlength'   => false,
+			'pattern'     => false,
+		) );
 
 		return $field;
 	}
@@ -40,15 +37,12 @@ class RWMB_Text_Field extends RWMB_Input_Field {
 	 */
 	public static function get_attributes( $field, $value = null ) {
 		$attributes = parent::get_attributes( $field, $value );
-		$attributes = wp_parse_args(
-			$attributes,
-			array(
-				'size'        => $field['size'],
-				'maxlength'   => $field['maxlength'],
-				'pattern'     => $field['pattern'],
-				'placeholder' => $field['placeholder'],
-			)
-		);
+		$attributes = wp_parse_args( $attributes, array(
+			'size'        => $field['size'],
+			'maxlength'   => $field['maxlength'],
+			'pattern'     => $field['pattern'],
+			'placeholder' => $field['placeholder'],
+		) );
 
 		return $attributes;
 	}

@@ -319,7 +319,7 @@ class WP_Object_Cache {
 			$this->cache[$key] = $value = false;
 		} else {
 			$value = $mc->get( $key );
-			if ( empty( $value ) || ( is_integer( $value ) && -1 == $value ) ) {
+			if ( $mc->getResultCode() == Memcached::RES_NOTFOUND ) {
 				$value = false;
 			}
 			$this->cache[$key] = $value;

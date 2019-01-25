@@ -5,13 +5,14 @@
 
 /* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_acceptance', 10, 0 );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_acceptance' );
 
 function wpcf7_add_form_tag_acceptance() {
 	wpcf7_add_form_tag( 'acceptance',
 		'wpcf7_acceptance_form_tag_handler',
 		array(
 			'name-attr' => true,
+			'do-not-store' => true,
 		)
 	);
 }
@@ -103,8 +104,7 @@ function wpcf7_acceptance_validation_filter( $result, $tag ) {
 
 	$invert = $tag->has_option( 'invert' );
 
-	if ( $invert and $value
-	or ! $invert and ! $value ) {
+	if ( $invert && $value || ! $invert && ! $value ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'accept_terms' ) );
 	}
 
@@ -134,7 +134,7 @@ function wpcf7_acceptance_filter( $accepted, $submission ) {
 
 		$content = trim( $content );
 
-		if ( $value and $content ) {
+		if ( $value && $content ) {
 			$submission->add_consent( $name, $content );
 		}
 
@@ -144,8 +144,7 @@ function wpcf7_acceptance_filter( $accepted, $submission ) {
 
 		$invert = $tag->has_option( 'invert' );
 
-		if ( $invert and $value
-		or ! $invert and ! $value ) {
+		if ( $invert && $value || ! $invert && ! $value ) {
 			$accepted = false;
 		}
 	}
@@ -153,8 +152,7 @@ function wpcf7_acceptance_filter( $accepted, $submission ) {
 	return $accepted;
 }
 
-add_filter( 'wpcf7_form_class_attr',
-	'wpcf7_acceptance_form_class_attr', 10, 1 );
+add_filter( 'wpcf7_form_class_attr', 'wpcf7_acceptance_form_class_attr' );
 
 function wpcf7_acceptance_form_class_attr( $class ) {
 	if ( wpcf7_acceptance_as_validation() ) {
@@ -213,7 +211,7 @@ function wpcf7_acceptance_mail_tag( $replaced, $submitted, $html, $mail_tag ) {
 
 /* Tag generator */
 
-add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_acceptance', 35, 0 );
+add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_acceptance', 35 );
 
 function wpcf7_add_tag_generator_acceptance() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();
@@ -251,7 +249,8 @@ function wpcf7_tag_generator_acceptance( $contact_form, $args = '' ) {
 	<td>
 		<fieldset>
 		<legend class="screen-reader-text"><?php echo esc_html( __( 'Options', 'contact-form-7' ) ); ?></legend>
-		<label><input type="checkbox" name="optional" class="option" checked="checked" /> <?php echo esc_html( __( 'Make this checkbox optional', 'contact-form-7' ) ); ?></label>
+		<label><input type="checkbox" name="default:on" class="option" /> <?php echo esc_html( __( 'Make this checkbox checked by default', 'contact-form-7' ) ); ?></label><br />
+		<label><input type="checkbox" name="invert" class="option" /> <?php echo esc_html( __( 'Make this work inversely', 'contact-form-7' ) ); ?></label>
 		</fieldset>
 	</td>
 	</tr>

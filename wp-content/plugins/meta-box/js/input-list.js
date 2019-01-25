@@ -14,16 +14,16 @@ jQuery( function ( $ ) {
 	}
 
 	$( '.rwmb-input' )
-		.on( 'change', '.rwmb-input-list.rwmb-collapse input[type="checkbox"]', update )
-		.on( 'clone', '.rwmb-input-list.rwmb-collapse input[type="checkbox"]', update );
-	$( '.rwmb-input-list.rwmb-collapse input[type="checkbox"]' ).each( update );
+		.on( 'change', '.rwmb-input-list.collapse :checkbox', update )
+		.on( 'clone', '.rwmb-input-list.collapse :checkbox', update );
+	$( '.rwmb-input-list.collapse :checkbox' ).each( update );
 
 	$( '.rwmb-input-list-select-all-none' ).toggle(
 		function () {
-			$( this ).parent().siblings( '.rwmb-input-list' ).find( 'input' ).prop( 'checked', true );
+			$('input[name="' + $(this).data('name') + '[]"]').prop('checked', true);
 		},
 		function () {
-			$( this ).parent().siblings( '.rwmb-input-list' ).find( 'input' ).prop( 'checked', false );
+			$('input[name="' + $(this).data('name') + '[]"]').prop('checked', false);
 		}
 	);
 } );

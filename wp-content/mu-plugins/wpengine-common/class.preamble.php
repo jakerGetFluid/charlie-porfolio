@@ -180,7 +180,7 @@ class Preamble {
         if ($this->function_modifier->_changesCallUserFunc()) {
             $dir = _wpe_old_wp_upload_dir($time);
         } else {
-            $dir = call_user_func('wp_upload_dir', $time);
+            $dir = call_user_func_array('wp_upload_dir', array($time));
         }
         if ( $is_cacheable )            // if allowed to cache, do it!
             $this->cached_dir = $dir;

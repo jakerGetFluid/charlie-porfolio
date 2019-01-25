@@ -88,11 +88,11 @@ class Site_Preview {
 	 * This is done to prevent WP->handle_404() from sending a 404 header, forcing it instead to send a 200 header.
 	 *
 	 * @param array    $posts    The array of found posts.
-	 * @param WP_Query $wp_query The WP_Query object (passed by reference).
+	 * @param WP_Query $wp_query The WP_Query object.
 	 *
 	 * @return array The array of posts.
 	 */
-	public function the_posts( $posts, &$wp_query ) {
+	public function the_posts( $posts, $wp_query ) {
 		if ( empty( $posts ) && $this->pagename == $wp_query->query_vars['pagename'] ) {
 			$posts = array( $this->pagename );
 		}

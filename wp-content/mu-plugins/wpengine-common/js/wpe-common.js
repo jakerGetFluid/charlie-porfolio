@@ -53,6 +53,10 @@ jQuery(document).ready(function($) {
 		var $element = $('a.install-now, a.update-now');
 		wpe.updates.confirmInit( $element );
 		wpe.updates.confirmLink( $element );
+	} else if( filename == 'index.php' && wpe.popup_disabled != 1 ) { 
+		var $element = $('a.install-now'); 
+		wpe.updates.confirmInit( $element ); 
+		wpe.updates.confirmLink( $element ); 
 	}
 });
 
@@ -227,7 +231,11 @@ jQuery(document).ready(function($) {
 				if(r != false) {
 					if( wpe.updates.areShiny() ) {
 						$element.data('confirmChange', true);
+						if ( $element[0].className.includes('activate-now') ) {
+							window.location.href = $element.attr('href');
+							} else {
 						$element.click();
+							}
 					} else {
 						if( true === actLikeLink ) {
 							window.location.href = $element.attr('href');

@@ -77,13 +77,7 @@ if (function_exists('bcn_display') && $rit_breadcrumbs != 1) { ?>
                     }
                     //Pagination
                     // Previous/next page navigation.
-                    // get_template_part('/included/templates/pagination');
-
-                    // load more pagination
-                    echo '<div class="wrap-pagination">';
-                    //file name shortcode - Attributes of shortcode - Query shortcode - Wrap block - Wrap content - Isotope true/false
-                    rit_ajax_load_more(basename(__FILE__, ".php"), $atts, $the_query, '.rit-portfolio', '.wrap-portfolio-block-item', true);
-                    echo '</div>';
+                    get_template_part('/included/templates/pagination');
                     ?>
 
                 </div><!-- .site-main -->

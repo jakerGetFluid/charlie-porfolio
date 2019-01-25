@@ -16,37 +16,31 @@ class RWMB_Post_Field extends RWMB_Object_Choice_Field {
 	 * @return array
 	 */
 	public static function normalize( $field ) {
-		$field = wp_parse_args(
-			$field,
-			array(
-				'post_type'  => 'post',
-				'parent'     => false,
-				'query_args' => array(),
-			)
-		);
+		// Set default field args.
+		$field = parent::normalize( $field );
+		$field = wp_parse_args( $field, array(
+			'post_type' => 'post',
+			'parent'    => false,
+		) );
 
-		$field['post_type'] = (array) $field['post_type'];
+		if ( ! isset( $field['query_args']['post_type'] ) ) {
+			$field['query_args']['post_type'] = $field['post_type'];
+		}
 
-		/*
-		 * Set default placeholder:
+		/**
+		 * Set default placeholder.
 		 * - If multiple post types: show 'Select a post'.
 		 * - If single post type: show 'Select a %post_type_name%'.
 		 */
-		$placeholder = __( 'Select a post', 'meta-box' );
-		if ( 1 === count( $field['post_type'] ) ) {
-			$post_type        = reset( $field['post_type'] );
-			$post_type_object = get_post_type_object( $post_type );
-			if ( ! empty( $post_type_object ) ) {
-				// Translators: %s is the taxonomy singular label.
-				$placeholder = sprintf( __( 'Select a %s', 'meta-box' ), strtolower( $post_type_object->labels->singular_name ) );
+		if ( empty( $field['placeholder'] ) ) {
+			$field['placeholder'] = __( 'Select a post', 'meta-box' );
+			if ( is_string( $field['query_args']['post_type'] ) && post_type_exists( $field['query_args']['post_type'] ) ) {
+				$post_type_object = get_post_type_object( $field['query_args']['post_type'] );
+
+				// Translators: %s is the post type singular label.
+				$field['placeholder'] = sprintf( __( 'Select a %s', 'meta-box' ), $post_type_object->labels->singular_name );
 			}
 		}
-		$field = wp_parse_args(
-			$field,
-			array(
-				'placeholder' => $placeholder,
-			)
-		);
 
 		// Set parent option, which will change field name to `parent_id` to save as post parent.
 		if ( $field['parent'] ) {
@@ -54,42 +48,26 @@ class RWMB_Post_Field extends RWMB_Object_Choice_Field {
 			$field['field_name'] = 'parent_id';
 		}
 
-		$field = parent::normalize( $field );
+		// Set default query args.
+		$field['query_args'] = wp_parse_args( $field['query_args'], array(
+			'post_status'    => 'publish',
+			'posts_per_page' => - 1,
+		) );
 
 		return $field;
 	}
 
 	/**
-	 * Query posts for field options.
+	 * Get field names of object to be used by walker.
 	 *
-	 * @param  array $field Field settings.
-	 * @return array        Field options array.
+	 * @return array
 	 */
-	public static function query( $field ) {
-		$args    = wp_parse_args(
-			$field['query_args'],
-			array(
-				'post_type'              => $field['post_type'],
-				'post_status'            => 'publish',
-				'posts_per_page'         => -1,
-				'no_found_rows'          => true,
-				'update_post_meta_cache' => false,
-				'update_post_term_cache' => false,
-			)
+	public static function get_db_fields() {
+		return array(
+			'parent' => 'post_parent',
+			'id'     => 'ID',
+			'label'  => 'post_title',
 		);
-		$query   = new WP_Query( $args );
-		$options = array();
-		foreach ( $query->posts as $post ) {
-			$options[ $post->ID ] = array_merge(
-				array(
-					'value'  => $post->ID,
-					'label'  => $post->post_title,
-					'parent' => $post->post_parent,
-				),
-				(array) $post
-			);
-		}
-		return $options;
 	}
 
 	/**
@@ -110,25 +88,32 @@ class RWMB_Post_Field extends RWMB_Object_Choice_Field {
 	}
 
 	/**
-	 * Format a single value for the helper functions. Sub-fields should overwrite this method if necessary.
+	 * Get options for walker.
 	 *
-	 * @param array    $field   Field parameters.
-	 * @param string   $value   The value.
-	 * @param array    $args    Additional arguments. Rarely used. See specific fields for details.
-	 * @param int|null $post_id Post ID. null for current post. Optional.
+	 * @param array $field Field parameters.
+	 * @return array
+	 */
+	public static function get_options( $field ) {
+		$query = new WP_Query( $field['query_args'] );
+		return $query->have_posts() ? $query->posts : array();
+	}
+
+	/**
+	 * Get option label.
+	 *
+	 * @param array  $field Field parameters.
+	 * @param string $value Option value.
 	 *
 	 * @return string
 	 */
-	public static function format_single_value( $field, $value, $args, $post_id ) {
-		return ! $value ? '' : sprintf(
+	public static function get_option_label( $field, $value ) {
+		return sprintf(
 			'<a href="%s" title="%s">%s</a>',
 			esc_url( get_permalink( $value ) ),
-			the_title_attribute(
-				array(
-					'post' => $value,
-					'echo' => false,
-				)
-			),
+			the_title_attribute( array(
+				'post' => $value,
+				'echo' => false,
+			) ),
 			get_the_title( $value )
 		);
 	}

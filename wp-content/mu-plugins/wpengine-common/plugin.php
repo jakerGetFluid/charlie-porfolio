@@ -239,7 +239,7 @@ class WpeCommon extends WpePlugin_common {
 
     const NAS_CONTENT = "/nas/content";
     const STAGING_STATUS_FILE = "last-mod";
-    const STAGING_STATUS_PATH_UNDER_LIVE = "_wpeprivate/staging-last-mod";
+    const PHP_VERSION_COOKIE_NAME = 'wpengine_php';
 
 	public function get_default_options() {
 		return array(
@@ -439,8 +439,13 @@ class WpeCommon extends WpePlugin_common {
 
 		parent::wp_hook_init();
 		$this->set_wpe_auth_cookie();
+		$this->set_php_version_cookie();
+		add_action( 'admin_notices', array( $this, 'display_php_version_admin_notice') );
 		if ( is_admin() ) {
-			add_action( 'admin_init', create_function( '', 'remove_action("admin_notices","update_nag",3);' ) );
+			$remove_update_nag = function() {
+				remove_action("admin_notices", "update_nag", 3);
+			};
+			add_action( 'admin_init', $remove_update_nag );
 			add_action( 'admin_head', array( $this, 'remove_upgrade_nags' ) );
 			add_filter( 'site_transient_update_plugins', array( $this, 'disable_indiv_plugin_update_notices' ) );
 			wp_enqueue_style( 'wpe-common', WPE_PLUGIN_URL.'/css/wpe-common.css', array(), WPE_PLUGIN_VERSION );
@@ -701,7 +706,7 @@ class WpeCommon extends WpePlugin_common {
 		add_submenu_page( 'wpengine-common', 'General Settings', 'General Settings', $capability, 'wpengine-common', array( $this, 'wpe_admin_page' ) );
 
 		// Direct link to staging tab
-		add_submenu_page( 'wpengine-common', 'Staging', 'Staging', $capability, 'wpengine-staging', array( $this, 'wpe_admin_page' ) );
+		add_submenu_page( 'wpengine-common', 'Legacy Staging', 'Legacy Staging', $capability, 'wpengine-staging', array( $this, 'wpe_admin_page' ) );
 
 		//Direct link to user portal
 		add_submenu_page('wpengine-common', 'User Portal','User Portal', $capability, 'wpe-user-portal', array( $this, 'redirect_to_user_portal') );
@@ -720,7 +725,7 @@ class WpeCommon extends WpePlugin_common {
 		add_submenu_page( 'wpengine-common', 'General Settings', 'General Settings', $capability, 'wpengine-common', array( $this, 'wpe_admin_page' ) );
 
 		// Direct link to staging tab
-		add_submenu_page( 'wpengine-common', 'Staging', 'Staging', $capability, 'wpengine-staging', array( $this, 'wpe_admin_page' ) );
+		add_submenu_page( 'wpengine-common', 'Legacy Staging', 'Legacy Staging', $capability, 'wpengine-staging', array( $this, 'wpe_admin_page' ) );
 
 		// Direct link to user portal
 		add_submenu_page( 'wpengine-common', 'User Portal', 'User Portal', $capability, 'wpe-user-portal', array( $this, 'redirect_to_user_portal' ) );
@@ -853,6 +858,58 @@ class WpeCommon extends WpePlugin_common {
 
 	}
 
+    /**
+     * Should we set wpengine_php cookie?
+     *
+     * If user is admin and query string is present set the php version cookie hash
+     */
+    public function set_php_version_cookie() {
+        $version_string = wpe_param( $this::PHP_VERSION_COOKIE_NAME );
+        if ( current_user_can( 'edit_pages' ) && $version_string ) {
+            $this->php_version_cookie( $version_string );
+        }
+    }
+
+    /**
+     * Set wpengine_php cookie
+     *
+     * @param string $version_string PHP version i.e. '7.2'.
+     */
+    public function php_version_cookie( $version_string = '7.2' ) {
+        global $wpengine_platform_config;
+        $cookie_expire    = '0';
+        $cookie_path      = '/';
+        $php_version_hash = $wpengine_platform_config['wpe_php'][ $version_string ];
+        $_COOKIE[ $this::PHP_VERSION_COOKIE_NAME ] = $php_version_hash;
+        setcookie(
+            $this::PHP_VERSION_COOKIE_NAME,
+            $php_version_hash,
+            $cookie_expire,
+            $cookie_path
+        );
+    }
+
+    /**
+     * Display an admin notice if testing a different PHP version
+     */
+	public function display_php_version_admin_notice() {
+		if ( isset( $_COOKIE[ $this::PHP_VERSION_COOKIE_NAME ] ) ) {
+			global $wpengine_platform_config;
+			$cookie_name = $this::PHP_VERSION_COOKIE_NAME;
+			$php_version = array_search( $_COOKIE[ $cookie_name ], $wpengine_platform_config['wpe_php'] );
+			// Inline js expires session cookie and reloads url but strips query params.
+			$inline_js   = "document.cookie=\"{$cookie_name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;\";location.replace(window.location.href.split(\"?\")[0]);";
+			echo '<div class="notice notice-success is-dismissible">';
+			echo '<p>';
+			echo 'You\'re testing PHP ' . esc_html( $php_version ) . '! ';
+			echo 'Only you can see this site running on PHP ' . esc_html( $php_version ) . '. ';
+			echo 'To return to your site\'s previous PHP version, close the browser or ';
+			echo '<a style="cursor:pointer;" onclick="' . esc_js( $inline_js ) . '">click here</a>.';
+			echo '</p>';
+			echo '</div>';
+		}
+	}
+
 	public function disable_indiv_plugin_update_notices( $value ) {
         	$plugins_to_disable_notices_for = array();
         	$basename = '';
@@ -966,11 +1023,12 @@ class WpeCommon extends WpePlugin_common {
 
         // If this isn't textual content, don't do any filtering.
         $is_html = false;
-        foreach ( headers_list() as $header )
+        foreach ( headers_list() as $header ) {
             if ( preg_match( "#^content-type:\\s*text/#i", $header ) ) {
                 $is_html = true;
                 break;
             }
+        }
         if ( ! $is_html )
             return $html;
 
@@ -1188,19 +1246,9 @@ class WpeCommon extends WpePlugin_common {
         $r = array( );
         $staging_dir        = self::NAS_CONTENT . "/staging/" . PWP_NAME;
         // in apache, the staging file is still checked under staging site
-        $staging_touch_file = "${staging_dir}/". self::STAGING_STATUS_FILE;;
+        $staging_touch_file = "${staging_dir}/". self::STAGING_STATUS_FILE;
         $r['staging_url']   = "http://" . PWP_NAME . ".staging.$sldomain";
-        $have_snapshot      = is_dir( $staging_dir ) && file_exists( $staging_touch_file );
-
-        // in gophpr, the staging status file is replicated under live site
-        $live_dir           = self::NAS_CONTENT . "/live/" . PWP_NAME;
-        if (!$have_snapshot && is_dir( $live_dir )) {
-                $staging_touch_file_under_live = "${live_dir}/". self::STAGING_STATUS_PATH_UNDER_LIVE;
-                if (file_exists( $staging_touch_file_under_live )) {
-                    $have_snapshot      = true;
-                    $staging_touch_file = $staging_touch_file_under_live;
-                }
-        }
+        $have_snapshot      = file_exists( $staging_touch_file );
         $r['have_snapshot'] = $have_snapshot;
 
         if ( $have_snapshot ) {
@@ -1229,14 +1277,7 @@ class WpeCommon extends WpePlugin_common {
             }
             $r['last_update'] = filemtime( $staging_touch_file );
             $staging_version_file = $staging_dir . "/wp-includes/version.php";
-            // In gophpr, staging directory is not accessible inside the worker from live site
-            // only place that is impacted by not having the version is where the warning is displayed to customers
-            // when staging WP version is older than live WP version.
-            if (file_exists( $staging_version_file )) {
-                $r['version'] = $this->get_wp_version($staging_version_file);
-            } else {
-                $r['version'] = "";
-            }
+            $r['version'] = $this->get_wp_version($staging_version_file);
         }
         return $r;
     }
@@ -1257,7 +1298,7 @@ class WpeCommon extends WpePlugin_common {
             }
 
             $r->public_ip = gethostbyname($r->lbmaster);
-            $r->sftp_host = ($r->is_pod ? $r->name : "sftp".$r->cluster) . ".$base";
+            $r->sftp_host = $r->name . ".sftp." . $base;
             $r->sftp_ip = ($r->is_pod ? gethostbyname("pod-{$r->cluster}") : gethostbyname($r->sftp_host));
             $r->sftp_port = defined('WPE_SFTP_PORT') ? WPE_SFTP_PORT : 22;
             $cached_site_info = $r;
@@ -1683,6 +1724,7 @@ class WpeCommon extends WpePlugin_common {
 		$wpe_user_id = wp_insert_user( $wpe_user );  // creates; returns new user ID
         } else {
 		$wpe_user['ID'] = $wpe_user_id;
+		unset($wpe_user['user_pass']);  // don't change the password if we already have a user established
 		wp_update_user( $wpe_user );
 	}
 
@@ -2015,6 +2057,11 @@ class WpeCommon extends WpePlugin_common {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
             return false;
         }
+
+	// Don't run if we're on staging, since there is no cache
+	if ( is_wpe_snapshot() ) {
+	    return false;
+	}
 
         // If we've purged "enough" times, stop already.
         if ( isset($purge_counter) && $purge_counter > 2 && ! $force ) {

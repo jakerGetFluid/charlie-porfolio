@@ -4,7 +4,7 @@
 ** Akismet API: http://akismet.com/development/api/
 **/
 
-add_filter( 'wpcf7_spam', 'wpcf7_akismet', 10, 1 );
+add_filter( 'wpcf7_spam', 'wpcf7_akismet' );
 
 function wpcf7_akismet( $spam ) {
 	if ( $spam ) {
@@ -70,8 +70,7 @@ function wpcf7_akismet_submitted_params() {
 	$has_akismet_option = false;
 
 	foreach ( (array) $_POST as $key => $val ) {
-		if ( '_wpcf7' == substr( $key, 0, 6 )
-		or '_wpnonce' == $key ) {
+		if ( '_wpcf7' == substr( $key, 0, 6 ) || '_wpnonce' == $key ) {
 			continue;
 		}
 

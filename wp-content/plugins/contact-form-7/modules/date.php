@@ -6,7 +6,7 @@
 
 /* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_date', 10, 0 );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_date' );
 
 function wpcf7_add_form_tag_date() {
 	wpcf7_add_form_tag( array( 'date', 'date*' ),
@@ -49,8 +49,7 @@ function wpcf7_date_form_tag_handler( $tag ) {
 
 	$value = (string) reset( $tag->values );
 
-	if ( $tag->has_option( 'placeholder' )
-	or $tag->has_option( 'watermark' ) ) {
+	if ( $tag->has_option( 'placeholder' ) || $tag->has_option( 'watermark' ) ) {
 		$atts['placeholder'] = $value;
 		$value = '';
 	}
@@ -94,13 +93,13 @@ function wpcf7_date_validation_filter( $result, $tag ) {
 		? trim( strtr( (string) $_POST[$name], "\n", " " ) )
 		: '';
 
-	if ( $tag->is_required() and '' == $value ) {
+	if ( $tag->is_required() && '' == $value ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
-	} elseif ( '' != $value and ! wpcf7_is_date( $value ) ) {
+	} elseif ( '' != $value && ! wpcf7_is_date( $value ) ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_date' ) );
-	} elseif ( '' != $value and ! empty( $min ) and $value < $min ) {
+	} elseif ( '' != $value && ! empty( $min ) && $value < $min ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'date_too_early' ) );
-	} elseif ( '' != $value and ! empty( $max ) and $max < $value ) {
+	} elseif ( '' != $value && ! empty( $max ) && $max < $value ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'date_too_late' ) );
 	}
 
@@ -110,7 +109,7 @@ function wpcf7_date_validation_filter( $result, $tag ) {
 
 /* Messages */
 
-add_filter( 'wpcf7_messages', 'wpcf7_date_messages', 10, 1 );
+add_filter( 'wpcf7_messages', 'wpcf7_date_messages' );
 
 function wpcf7_date_messages( $messages ) {
 	return array_merge( $messages, array(
@@ -134,7 +133,7 @@ function wpcf7_date_messages( $messages ) {
 
 /* Tag generator */
 
-add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_date', 19, 0 );
+add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_date', 19 );
 
 function wpcf7_add_tag_generator_date() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();
