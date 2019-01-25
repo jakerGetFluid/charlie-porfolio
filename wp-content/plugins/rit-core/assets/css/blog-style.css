@@ -1,0 +1,279 @@
+/*News css*/
+.rit-default-style .rit-news-item{
+    display:block;
+    padding-bottom:25px;
+    margin-bottom:30px;
+    border-bottom:4px solid #eaeaea
+}
+.rit-default-style .wrapper-img{
+    position:relative;
+    display:block;
+    width:100%;
+    z-index:9
+}
+.rit-default-style .wrapper-img img{
+    height:auto
+}
+.rit-default-style .wrapper-mask{
+    padding:25px;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    opacity:0;
+}
+.rit-default-style .border-mask{
+    width:100%;
+    height:100%;
+    padding:10px;
+    border:1px solid rgba(255,255,255,0.6)
+}
+.rit-default-style .wrapper-img:hover .wrapper-mask{
+    padding: 55px;
+    z-index:10;
+    transform:scale(1);
+    opacity:0.9;
+}
+.rit-default-style .mask{
+    width:100%;
+    background:rgba(255,255,255,0.6);
+    display:block;
+    height:100%;
+    text-align:center;
+    position:relative;
+    line-height:100%;
+    text-align:center
+}
+.rit-default-style .readmore{
+    font-size:18px;
+    color:#000;
+    position:absolute;
+    top:50%;
+    margin-top:-25px;
+    left:50%;
+    margin-left:-50px;
+    text-align:center;
+    width:100px;
+    height:50px
+}
+.rit-default-style .readmore a{
+    display:block;
+    position:relative;
+    width:100%;
+    line-height:35px;
+    height:35px;
+    color:#000;
+    text-transform:capitalize
+}
+.rit-default-style .readmore a:hover{
+    text-decoration:none
+}
+.rit-default-style .readmore a:before, .rit-default-style  .readmore a:after{
+    position:absolute;
+    left:50%;
+    margin-left:-15px;
+    height:5px;
+    background:#000;
+    width:30px;
+    content:"";
+    display:block
+}
+.rit-default-style .readmore a:before{
+    top:-5px
+}
+.rit-default-style  .readmore a:before{
+    bottom:-5px
+}
+.rit-default-style .rit-news-info{
+    padding:25px
+}
+.rit-default-style .title-news{
+    margin:0 0 5px;
+}
+.rit-default-style .title-news a, .title-news{
+    font-size:18px;
+    text-transform:uppercase;
+    color:#525252;
+    font-family: "Open Sans",sans-serif;
+}
+.rit-default-style .title-news a:hover{
+    color:#9eabb3;
+}
+.rit-default-style .rit-news-info{
+    color:#b2b2b2
+}
+.rit-default-style .info-post{
+    font-size:12px
+}
+.rit-default-style .rit-news-info .description{
+    font-size:14px;
+    padding-top: 5px;
+}
+.rit-default-style .pager{
+    margin:30px 0 0;
+    width:100%;
+    text-align:center
+}
+.rit-default-style .pager ul{
+    margin:0
+}
+.rit-default-style .pager ul li{
+    display:inline;
+    text-align:center
+}
+.rit-default-style .pager ul li a, .pager ul li span{
+    padding:0;
+    border:none;
+    line-height:35px;
+    width:35px;
+    height:35px;
+    border-radius:0;
+    margin:0;
+    border:1px solid #f6f6f6;
+    margin-left:-3px;
+}
+.rit-default-style .pager ul li a{
+    color:#acb6bc
+}
+.rit-default-style .pager ul li a:hover, .pager ul li span{
+    background:#000;
+    color:#fff
+}
+/*Medium layout*/
+.rit-default-style .rit-blog-medium-layout .rit-news-info, .rit-default-style .rit-medium-layout .rit-news-info{
+    padding:0 25px
+}
+.rit-default-style .rit-blog-medium-layout .rit-news-item, .rit-medium-layout .rit-news-item{
+    padding-bottom: 30px;
+}
+.rit-default-style .rit-blog-medium-layout .rit-news-item p, .rit-blog-grid-layout .rit-news-item p{
+    margin-bottom: 5px;
+}
+.rit-default-style .rit-blog-medium-layout .wrapper-img:hover .wrapper-mask{
+    padding:10px
+}
+.rit-default-style .rit-blog-medium-layout .wrapper-img, .rit-medium-layout .wrapper-img{
+    margin-bottom: 20px;
+}
+.rit-default-style .rit-blog-medium-layout .wrapper-img:hover .wrapper-mask, .rit-medium-layout .wrapper-img:hover .wrapper-mask{
+        padding:10px
+}
+.rit-default-style .rit-blog-medium-layout .news-item{
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.rit-default-style .rit-blog-medium-layout .rit-news-info{
+    padding:10px 0 20px;
+    /*border-bottom: 3px solid #b2b2b2;*/
+}
+/*End medium*/
+/*Timeline layout*/
+.rit-default-style .rit-blog-timeline-layout, .rit-timeline-layout{
+    padding-bottom: 100px;
+}
+.rit-default-style .rit-blog-timeline-layout:after, .rit-timeline-layout:after{
+    background: -moz-linear-gradient(top, #FFFFFF, #505050 5%, #000, #505050 95%, #FFFFFF);
+    background: -o-linear-gradient(top, #FFFFFF, #505050 5%, #000, #505050 95%, #FFFFFF);
+    background: -webkit-linear-gradient(top, #FFFFFF, #505050 5%, #000, #505050 95%, #FFFFFF);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 50%;
+    margin-left: -2px;
+    opacity: 0.35;
+    position: absolute;
+    top: -60px;
+    width: 3px;
+    z-index: 0;
+}
+.rit-default-style .timeline-date{
+    padding:10px 20px;
+    border:1px solid #333;
+    background: #fff;
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    text-align: center;
+    position: relative;
+    z-index: 9;
+    margin-bottom: 30px;
+}
+.rit-default-style .timeline-date h3{
+    font-size: 18px;
+    font-weight: normal;
+    color: #333;
+}
+.rit-default-style .rit-blog-timeline-layout .left, .rit-default-style .rit-timeline-layout .left{
+    float: left;
+}
+.rit-default-style .rit-blog-timeline-layout .right, .rit-default-style .rit-timeline-layout .right{
+    float: right;margin-top: 20px;
+}
+.rit-blog-timeline-layout .rit-news-info, .rit-default-style .rit-timeline-layout .rit-news-info{
+    padding-bottom: 0;
+}
+.rit-default-style .rit-blog-timeline-layout .timeline-box, .rit-default-style .rit-timeline-layout .timeline-box{
+    padding-bottom: 20px;
+    border-bottom:3px solid #ACACAC;
+    background: #fff;
+    position: relative;
+}
+.rit-default-style .info-post{
+    margin-bottom: 5px;
+}
+@media(max-width: 768px){
+    .rit-default-style  .rit-blog-timeline-layout .rit-news-info, .rit-default-style  .rit-timeline-layout .rit-news-info{
+        background: #fff;
+        padding-bottom: 25px;
+    }
+}
+
+/*End timeline layout
+Begin large alt layout
+*/
+.rit-default-style .rit-blog-large-alt-layout .date{
+    width: 100%;
+    padding:5px;
+    display: block;
+    background: #697782;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.rit-default-style .rit-blog-large-alt-layout .alt a{
+    padding:5px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    display: block;
+}
+.rit-default-style .rit-blog-large-alt-layout .alt .comment-count{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.rit-default-style .rit-blog-large-alt-layout .alt{
+    border-bottom: 1px solid #ccc;
+}
+.rit-default-style .wrapper-img iframe{
+    width: 100%;
+}
+/*End large alt layout*/
+.rit-blog-medium-layout .wrapper-img iframe{
+    width: auto;
+    height: auto;
+}
+.rit-default-style .wrapper-img iframe{
+    margin: 0;
+}
+.rit-default-style .wrapper-img>a{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.rit-default-style .wrapper-img>a>img{
+    max-width: 100%;
+}
+/*End news css*/
