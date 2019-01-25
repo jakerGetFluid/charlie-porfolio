@@ -1,0 +1,91 @@
+{
+	"home": {
+		"name": "Home - Default Home",
+		"des": "",
+		"path": "home",
+		"type": ["home","slider"]
+	},
+	"home-cover-1": {
+		"name": "Home Cover 1",
+		"des": "",
+		"path": "home-cover-1",
+		"type": ["home","slider"]
+	},
+	"home-cover-2": {
+		"name": "Home Cover 2",
+		"des": "",
+		"path": "home-cover-2",
+		"type": ["home","slider"]
+	},
+	"home-carousel": {
+		"name": "Home Carousel",
+		"des": "",
+		"path": "home-carousel",
+		"type": ["home","slider"]
+	},
+	"home-album-metro-1": {
+		"name": "Home Album Metro 1",
+		"des": "",
+		"path": "home-album-metro-1",
+		"type": ["home","album"]
+	},
+	"home-album-metro-2": {
+		"name": "Home Album Metro 2",
+		"des": "",
+		"path": "home-album-metro-2",
+		"type":  ["home","album"]
+	},
+	"home-portfolio-grid-1": {
+		"name": "Home Portfolio Grid 1",
+		"des": "",
+		"path": "home-portfolio-grid-1",
+		"type":  ["home","portfolio"]
+	},
+	"home-portfolio-grid-2": {
+		"name": "Home Portfolio Grid 2",
+		"des": "",
+		"path": "home-portfolio-grid-2",
+		"type":  ["home","portfolio"]
+	},
+	"home-portfolio-masonry": {
+		"name": "Home Portfolio Masonry",
+		"des": "",
+		"path": "home-portfolio-masonry",
+		"type":  ["home","portfolio"]
+	},
+	"home-portfolio-metro": {
+		"name": "Home Portfolio Metro",
+		"des": "",
+		"path": "home-portfolio-metro",
+		"type":  ["home","portfolio"]
+	},	"home-portfolio-metro-2": {
+		"name": "Home Portfolio Metro 2",
+		"des": "",
+		"path": "home-portfolio-metro-2",
+		"type":  ["home","portfolio"]
+	},
+	"home-portfolio-logo-center": {
+		"name": "Home Portfolio Logo Center",
+		"des": "",
+		"path": "home-portfolio-logo-center",
+		"type":  ["home","portfolio","slider"]
+	},
+	"home-portfolio-logo-center-transparent": {
+		"name": "Home Portfolio Logo Center Transparency",
+		"des": "",
+		"path": "home-portfolio-logo-center-transparent",
+		"type":  ["home","portfolio","slider"]
+	},
+	"home-portfolio-header-menu-center": {
+		"name": "Home Portfolio Menu Center",
+		"des": "",
+		"path": "home-portfolio-header-menu-center",
+		"type":  ["home","portfolio","slider"]
+	},
+	"home-portfolio-header-stack-center": {
+		"name": "Home Portfolio Stack Center",
+		"des": "",
+		"path": "home-portfolio-header-stack-center",
+		"type":  ["home","portfolio","slider"]
+	}
+}

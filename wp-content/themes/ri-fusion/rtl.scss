@@ -1,0 +1,389 @@
+/*
+Theme Name: ri-fusion
+Description: Adds support for languages written in a Right To Left (RTL) direction.
+It's easy, just a matter of overwriting all the horizontal positioning attributes
+of your CSS stylesheet in a separate stylesheet file named rtl.css.
+Visible from fi-fusion 1.1.0
+See: https://codex.wordpress.org/Right_to_Left_Language_Support
+*/
+@mixin transition-all($time) {
+  transition: all $time;
+  -webkit-transition: all $time;
+  -moz-transition: all $time;
+  -o-transition: all $time;
+  -ms-transition: all $time;
+}
+
+@mixin transition($val) {
+  transition: $val;
+  -webkit-transition: $val;
+  -moz-transition: $val;
+  -o-transition: $val;
+  -ms-transition: $val;
+}
+
+@mixin border-radius($val) {
+  border-radius: $val;
+  -moz-border-radius: $val;
+  -o-border-radius: $val;
+  -webkit-border-radius: $val;
+  -ms-border-radius: $val;
+}
+
+@mixin transform($val) {
+  -webkit-transform: $val;
+  -moz-transform: $val;
+  -ms-transform: $val;
+  -o-transform: $val;
+  transform: $val
+}
+
+/*Color*/
+$primary_color: #252525;
+$border_color: #ebebeb;
+$color_hover: #a1a1a1;
+$white-text: #fff;
+$color_c: #ccc;
+$bg_block: #f5f5f5;
+$gray_5: #555;
+$sec_color: #acacac;
+$footer-color: #494949;
+$body-color: #494949;
+$sidebar-color: #494949;
+$project-info: #959595;
+$description-color: #7d7d7d;
+$black_transparent_1: rgba(0, 0, 0, 0.1);
+$black_transparent_2: rgba(0, 0, 0, 0.2);
+$black_transparent_4: rgba(0, 0, 0, 0.4);
+$black_transparent_5: rgba(0, 0, 0, 0.5);
+$black_transparent_8: rgba(0, 0, 0, 0.8);
+$black_transparent_9: rgba(0, 0, 0, 0.9);
+$white_transparent_8: rgba(255, 255, 255, 0.8);
+$white_transparent_5: rgba(255, 255, 255, 0.5);
+$white_transparent_2: rgba(255, 255, 255, 0.2);
+$white_transparent_1: rgba(255, 255, 255, 0.1);
+body {
+  direction: rtl;
+  unicode-bidi: embed;
+}
+
+caption,
+th,
+td {
+  text-align: right;
+}
+
+.rtl {
+  .gallery-list-info {
+    .infor-label {
+      float: right;
+    }
+    .infor-detail {
+      float: right;
+    }
+  }
+  .wrap-gallery-info {
+    .share-links {
+      & > span {
+        float: right;
+      }
+      .social-icons {
+        float: right;
+      }
+    }
+  }
+  .wrap-mobile-nav:not(.lightbox) {
+    transform: translateX(360px);
+  }
+  .close-canvas {
+    right: calc(100% - 55px);
+  }
+  .wrap-mobile-nav:not(.lightbox) .search-wrap i {
+    right: calc(100% - 10px);
+  }
+  .post-author {
+    .author-img {
+      float: right;
+    }
+    .author-content {
+      padding-left: 0;
+      padding-right: 40px;
+    }
+  }
+  .right-sidebar .content-single {
+    padding-right: 15px;
+    padding-left: 45px;
+  }
+  .next-post {
+    text-align: left;
+  }
+  .author-social {
+    margin-left: 0;
+    margin-right: -10px;
+  }
+  #sidebar-trigger.canvas-icon {
+    margin-left: 0;
+    margin-right: 30px;
+  }
+  #comments-list {
+    .comment-avatar {
+      float: right;
+    }
+    .comment-content {
+      padding-left: 0;
+      padding-right: 20px;
+    }
+    .comment-meta-actions {
+      right: auto;
+      left: 0;
+    }
+    ul.children {
+      margin-left: 0;
+      margin-right: 70px;
+    }
+  }
+  ul, ol {
+    margin-right: 35px;
+    margin-left: 0;
+  }
+  blockquote::before, .quote::before, q::before {
+    left: auto;
+    right: 5px;
+  }
+  #off-sidebar {
+    right: auto;
+    left: 0;
+    @include transform(translateX(-100%));
+    &.active {
+      @include transform(translateX(0%));
+    }
+  }
+  .portfolio-detail.full-screen .wrap-portfolio-content.minimal .date-post {
+    float: right;
+  }
+  .portfolio-detail.full-screen .toggle-view {
+    right: auto;
+    left: 20px;
+  }
+  .portfolio-pagination .next-post {
+    span {
+      margin-left: 30px;
+      margin-right: 0;
+    }
+    i{
+      float: left;
+      position: relative;
+      @include transform(rotate(180deg))
+    }
+  }
+  .portfolio-pagination .prev-post {
+    span {
+      margin-right: 30px;
+      margin-left: 0;
+    }
+    i{
+      float: right;
+      position: relative;
+      @include transform(rotate(180deg))
+    }
+  }
+  #menu-mobile-trigger{
+    margin-left: 30px;
+    margin-right: 0;
+  }
+  .detail-project-info{
+    margin-right: 0;
+  }
+  .portfolio-detail:not(.has-sidebar) .detail-project-info > li{
+    float: right;
+  }
+  .social-icons, .social-share{
+    margin: 0;
+  }
+  .wrap-portfolio-imgs{
+    margin-right: 0;
+  }
+  .widget>ul{margin: 0}
+  .wrap-mobile-nav.active:not(.lightbox){
+    @include transform(translateX(0))
+  }
+  .triggernav{
+    right: auto;
+    left:0;
+  }
+  .rit-recent-post-widgets{
+    .recent-post-image{
+      float: right;
+      padding-left: 15px;
+      padding-right: 0;
+    }
+  }
+  .rit-wrap-lightbox-gallery-block {
+    .rit-lb-gallery-nav.rit-lb-prev-item{
+      left: auto;
+      right: 0;
+      i{
+        right: 10px;
+        left: auto;
+        @include transform(rotate(180deg))
+      }
+    }
+    .rit-lb-gallery-nav.rit-lb-next-item{
+      left: 0;
+      right: auto;
+      i{
+        left: 10px;
+        right: auto;
+        @include transform(rotate(180deg))
+      }
+    }
+  }
+  .rit-lightbox-gallery-block{
+    margin: 0;
+  }
+  .rit-lb-gallery-count{
+    right: 0;
+    left: auto;
+  }
+  .gallery-list-info{
+    margin-right:0;
+    .infor-label{
+      padding-right: 0;
+    }
+  }
+  .wrap-mobile-nav:not(.lightbox) #mobile-nav li ul{
+    padding-left: 0;
+    padding-right: 30px;
+  }
+  .default .portfolio-info {
+    padding-right: 30px;
+    padding-left: 10px;
+    .portfolio-item .list-cat a{
+      margin-right: 0;
+      margin-left: 5px;
+    }
+  }
+  .wrap-mobile-nav.lightbox #mobile-nav > div > ul > li > ul{
+    right: 0;
+  }
+  .wrap-mobile-nav.lightbox #mobile-nav > div > ul > li > ul, .wrap-mobile-nav.lightbox #mobile-nav li ul{
+    left: auto;
+    text-align: right;
+  }
+  .wrap-mobile-nav.lightbox #mobile-nav li ul{
+    right: calc(100% + 30px);
+  }
+  .wrap-mobile-nav.lightbox #mobile-nav li li:hover>ul{
+    right: 100%
+  }
+  .wrap-mobile-nav.lightbox #mobile-nav li.page_item_has_children > a::after, .wrap-mobile-nav.lightbox #mobile-nav li.menu-item-has-children > a::after{
+    float: left;
+  }
+  .wrap-mobile-nav.lightbox #mobile-nav ul.sub-menu li.page_item_has_children > a::after, .wrap-mobile-nav.lightbox #mobile-nav ul.sub-menu li.menu-item-has-children > a::after{
+   position: relative;
+    @include transform(rotate(180deg))
+  }
+  .post-pagination .next-post{
+    float: left;
+  }
+  #main-navigation > div > ul ul{
+    text-align: right;
+  }
+  #main-navigation > div > ul ul:not(.pos-left){
+    left: auto;
+    right: 0;
+  }
+  #main-navigation > div > ul ul ul:not(.pos-left){
+    left: auto;
+    right: calc(100% + 30px);
+  }
+  #main-navigation > div > ul ul li:hover > ul:not(.pos-left){
+    right: 100%;
+    left: auto;
+  }
+  #main-navigation > div > ul ul ul.pos-left{
+    right: auto;
+    left: calc(100% + 30px);
+  }
+  #main-navigation > div > ul ul li:hover > ul.pos-left{
+    left: 100%;
+    right: auto;
+  }
+  #main-navigation > div > ul ul.pos-left{
+    left: 0;
+    right: auto;
+  }
+  #main-navigation > div > ul > li ul .menu-item-has-children > a::after{
+    float: left;
+    @include transform(rotate(180deg))
+  }
+}
+
+@media(min-width: 769px) {
+  .rtl {
+    .wrap-mobile-nav.hamburger {
+      left: auto;
+      right: 0;
+    }
+  }
+}
+
+@media(max-width: 769px) {
+  .rtl {
+    .wrap-mobile-nav:not(.lightbox) {
+      transform: translateX(0px);
+      z-index: -1;
+    }
+    #logo{
+      text-align: right;
+    }
+    #menu-mobile-trigger{
+      margin-left: 0;
+      margin-right: 30px;
+    }
+    .post-author .author-content{
+      padding:0 15px
+    }
+    .post-author .author-name{
+      margin-left: 0;
+      margin-right: 60px;
+    }
+    .author-img{
+      padding:0;
+      left: auto;
+      right: 20px;
+    }
+    .wrap-mobile-nav {
+      @include transform(translateY(-100%));
+      @include transition-all(500ms);
+      opacity: 0;
+      &.active {
+        z-index: 999;
+        @include transform(translateY(0%));
+        opacity: 1;
+      }
+    }
+    &.logged-in{
+      .wrap-mobile-nav{
+        @include transform(translateY(-120%));
+        &.active {
+          @include transform(translateY(0%));
+        }
+      }
+    }
+    #menu-mobile-trigger{
+      @include transform(translateX(0))
+    }
+    .wrap-mobile-nav.lightbox #mobile-nav > div > ul > li{
+      text-align: right;
+    }
+    .wrap-mobile-nav.lightbox #mobile-nav li ul li{
+      text-align: right;
+      padding-left: 0;
+      padding-right: 25px;
+    }
+    .wrap-mobile-nav.lightbox .triggernav{
+      top: 10px;
+    }
+  }
+}
