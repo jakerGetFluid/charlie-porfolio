@@ -20,7 +20,9 @@
         
         <article class="cat">
           <?php if($feat_cat_photo) : ?>
-            <div class="cat-bg" style="background-image:url(<?= $feat_cat_photo ?>)"></div>
+            <div class="cat-bg-wrap">
+              <div class="cat-bg" style="background-image:url(<?= $feat_cat_photo ?>)"></div>
+            </div>
           <?php endif; ?>
           <a href="<?= $cat_link ?>" class="cat-inner">
             <h4><?php the_title(); ?></h4>
