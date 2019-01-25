@@ -19,3 +19,91 @@ Use it to make something cool, have fun, and share what you've learned with othe
   max-width: 195px;
   max-height: 40px;
 }
+.photo-index .page-title {
+  text-align: center;
+  margin-top: 1rem;
+  border-bottom: none;
+}
+.photo-index .photo-cats {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  -o-flex-flow: row wrap;
+  flex-flow: row wrap;
+  justify-content: center;
+  -ms-align-items: stretch;
+  align-items: stretch;
+  margin-bottom: 72px;
+}
+.photo-index .photo-cats article.cat {
+  position: relative;
+  flex: 1 0 50%;
+  min-height: 400px;
+  padding: 20px;
+  text-align: center;
+  background: #696969;
+  overflow: hidden;
+}
+.photo-index .photo-cats article.cat::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+}
+.photo-index .photo-cats article.cat:hover .cat-bg,
+.photo-index .photo-cats article.cat:focus .cat-bg {
+  -ms-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.photo-index .photo-cats article.cat .cat-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: transform .2s ease-in;
+}
+.photo-index .photo-cats article.cat h4 {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 32px;
+}
+.photo-index .photo-cats article.cat .cat-inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  border: 1px solid rgba(250,250,250,.3);
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+@media screen and (min-width: 768px) {
+  .photo-index .photo-cats article.cat h4 {
+    font-size: 48px;
+  }
+}

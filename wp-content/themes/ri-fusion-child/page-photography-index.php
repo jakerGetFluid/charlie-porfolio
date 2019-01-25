@@ -10,7 +10,7 @@
 
 get_header();
 ?>
-<main id="main-page" class="wrap-main-page photo-cat">
+<main id="main-page" class="wrap-main-page photo-index">
     <div class="container">
         <div id="primary" class="content-area no-sidebar">
             <div id="main" class="site-main page-content">
