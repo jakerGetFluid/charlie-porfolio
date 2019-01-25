@@ -344,6 +344,13 @@
                 })
             }).resize();
         }
-    })
+    });
+
+    $('.photo-grid i.deploy').click(function(event) {
+      $(this).closest('article.photo').addClass('show-full');
+    });
+    $('.photo-grid i.close').click(function(event) {
+      $(this).closest('article.photo').removeClass('show-full');
+    });
 })
 (jQuery)

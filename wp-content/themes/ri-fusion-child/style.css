@@ -19,7 +19,20 @@ Use it to make something cool, have fun, and share what you've learned with othe
   max-width: 195px;
   max-height: 40px;
 }
-.photo-index .page-title {
+.show-for-sr {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+.photo-index .page-title,
+.single-cat .page-title {
   text-align: center;
   margin-top: 1rem;
   border-bottom: none;
@@ -145,5 +158,93 @@ Use it to make something cool, have fun, and share what you've learned with othe
   .photo-index .photo-cats article.cat:hover,
   .photo-index .photo-cats article.cat:focus {
     padding: 30px;
+  }
+}
+
+/*single category*/
+.single-cat .photo-grid {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  -o-flex-flow: row wrap;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  -ms-align-items: stretch;
+  align-items: stretch;
+  margin-bottom: 72px;
+}
+.single-cat .photo-grid article.photo {
+  position: relative;
+  flex: 0 0 50%;
+  padding: 5px;
+  min-height: 200px;
+}
+.single-cat .photo-grid article.photo .photo-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.single-cat .photo-grid article.photo .photo-inner i {
+  position: absolute;
+  color: #333;
+  padding: 8px 10px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: rgba(250,250,250,.85);
+  line-height: 1;
+  top: 50%;
+  left: 50%;
+  font-size: 20px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity .2s linear .2s, background .2s linear;
+}
+.single-cat .photo-grid article.photo .photo-inner i:hover {
+  cursor: pointer;
+  background: rgba(250,250,250,1);
+}
+.single-cat .photo-grid article.photo .photo-inner:hover i {
+  opacity: 1;
+}
+.single-cat .photo-grid article.photo .full-size {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  transition: top .2s linear, height .2s linear;
+}
+.single-cat .photo-grid article.photo .full-size img {
+  position: relative;
+  z-index: 9999;
+}
+.single-cat .photo-grid article.photo .full-size::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 9998;
+  transition: top .2s linear, height .2s linear;
+}
+.single-cat .photo-grid article.photo.show-full .full-size,
+.single-cat .photo-grid article.photo.show-full .full-size::after {
+  top: 0;
+  height: 100%;
+}
+@media screen and (min-width: 1024px) {
+  .single-cat .photo-grid article.photo {
+    flex: 0 0 33%;
   }
 }
